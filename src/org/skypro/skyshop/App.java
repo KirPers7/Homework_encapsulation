@@ -12,6 +12,9 @@ public class App {
         System.out.println("Заполнение корзины 1");
         productBasket.addProduct("Телевизор", 50_000);
         productBasket.addProduct("Холодильник", 60_000);
+        productBasket.addProductGeneral("Аэрогриль", 5_200, 10);
+        productBasket.addProductGeneral("Фен", 3_400, 0);
+        productBasket.addProductGeneral("Фонарик",0,0);
         System.out.println();
         System.out.println("Заполнение корзины 2");
         productBasket2.addProduct("Пылесос", 30_500);
