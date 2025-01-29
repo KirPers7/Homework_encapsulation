@@ -10,23 +10,22 @@ public class App {
 
         //1. Добавление продукта в корзину.
         System.out.println("Заполнение корзины 1");
-        productBasket.addProduct("Телевизор", 50_000);
-        productBasket.addProduct("Холодильник", 60_000);
-        productBasket.addProductGeneral("Аэрогриль", 5_200, 10);
-        productBasket.addProductGeneral("Фен", 3_400, 0);
-        productBasket.addProductGeneral("Фонарик",0,0);
+        productBasket.addProduct("Телевизор", 50_000, 0);
+        productBasket.addProduct("Холодильник", 60_000, 0);
+        productBasket.addProduct("Аэрогриль", 5_200, 10);
+        productBasket.addProduct("Фонарик", 0, 0);
         System.out.println();
         System.out.println("Заполнение корзины 2");
-        productBasket2.addProduct("Пылесос", 30_500);
-        productBasket2.addProduct("Телевизор", 50_000);
-        productBasket2.addProduct("Холодильник", 60_000);
-        productBasket2.addProduct("Мультиварка", 15_800);
-        productBasket2.addProduct("Яндекс станция", 12_300);
+        productBasket2.addProduct("Пылесос", 30_500, 0);
+        productBasket2.addProduct("Телевизор", 50_000, 0);
+        productBasket2.addProduct("Холодильник", 60_000, 0);
+        productBasket2.addProduct("Мультиварка", 15_800, 0);
+        productBasket2.addProduct("Яндекс станция", 12_300, 0);
         System.out.println();
 
         //2. Добавление продукта в заполненную корзину, в которой нет свободного места.
         System.out.println("Переполнение корзины 2");
-        productBasket2.addProduct("Микроволновая печь", 25_100);
+        productBasket2.addProduct("Микроволновая печь", 25_100, 0);
         System.out.println();
 
         //3. Печать содержимого корзины с несколькими товарами.
