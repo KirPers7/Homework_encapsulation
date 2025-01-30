@@ -1,6 +1,9 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
+import org.skypro.skyshop.product.DiscountedProduct;
+import org.skypro.skyshop.product.FixPriceProduct;
+import org.skypro.skyshop.product.SimpleProduct;
 
 public class App {
     public static void main(String[] args) {
@@ -10,22 +13,22 @@ public class App {
 
         //1. Добавление продукта в корзину.
         System.out.println("Заполнение корзины 1");
-        productBasket.addProduct("Телевизор", 50_000, 0);
-        productBasket.addProduct("Холодильник", 60_000, 0);
-        productBasket.addProduct("Аэрогриль", 5_200, 10);
-        productBasket.addProduct("Фонарик", 0, 0);
+        productBasket.addProduct(new SimpleProduct("Телевизор", 50_000));
+        productBasket.addProduct(new SimpleProduct("Холодильник", 60_000));
+        productBasket.addProduct(new DiscountedProduct("Аэрогриль", 5_200, 10));
+        productBasket.addProduct(new FixPriceProduct("Фонарик"));
         System.out.println();
         System.out.println("Заполнение корзины 2");
-        productBasket2.addProduct("Пылесос", 30_500, 0);
-        productBasket2.addProduct("Телевизор", 50_000, 0);
-        productBasket2.addProduct("Холодильник", 60_000, 0);
-        productBasket2.addProduct("Мультиварка", 15_800, 0);
-        productBasket2.addProduct("Яндекс станция", 12_300, 0);
+        productBasket2.addProduct(new SimpleProduct("Пылесос", 30_500));
+        productBasket2.addProduct(new SimpleProduct("Телевизор", 50_000));
+        productBasket2.addProduct(new SimpleProduct("Холодильник", 60_000));
+        productBasket2.addProduct(new SimpleProduct("Мультиварка", 15_800));
+        productBasket2.addProduct(new SimpleProduct("Яндекс станция", 12_300));
         System.out.println();
 
         //2. Добавление продукта в заполненную корзину, в которой нет свободного места.
         System.out.println("Переполнение корзины 2");
-        productBasket2.addProduct("Микроволновая печь", 25_100, 0);
+        productBasket2.addProduct(new SimpleProduct("Микроволновая печь", 25_100));
         System.out.println();
 
         //3. Печать содержимого корзины с несколькими товарами.

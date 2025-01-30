@@ -1,28 +1,18 @@
 package org.skypro.skyshop.basket;
 
-import org.skypro.skyshop.product.DiscountedProduct;
-import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
-import org.skypro.skyshop.product.SimpleProduct;
 
 public class ProductBasket {
 
     static final int LENGTH = 5;
-
     Product[] products = new Product[LENGTH];
 
     //1. Метод добавления продукта в корзину: метод принимает в себя продукт и ничего не возвращает.
-    public void addProduct(String name, int price, int discountPercent) {
+    public void addProduct(Product product) {
         int count = 0;
         for (int i = 0; i < products.length; i++) {
-            if (products[i] == null && discountPercent == 0 && price == 0) {
-                products[i] = new FixPriceProduct(name);
-                break;
-            } else if (products[i] == null && discountPercent == 0 && price != 0) {
-                products[i] = new SimpleProduct(name, price);
-                break;
-            } else if (products[i] == null) {
-                products[i] = new DiscountedProduct(name, price, discountPercent);
+            if (products[i] == null) {
+                products[i] = product;
                 break;
             } else if (products[i] != null) {
                 count++;
