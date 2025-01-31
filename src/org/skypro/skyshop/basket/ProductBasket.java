@@ -5,15 +5,14 @@ import org.skypro.skyshop.product.Product;
 public class ProductBasket {
 
     static final int LENGTH = 5;
-
-    private final Product[] products = new Product[LENGTH];
+    Product[] products = new Product[LENGTH];
 
     //1. Метод добавления продукта в корзину: метод принимает в себя продукт и ничего не возвращает.
-    public void addProduct(String name, int price) {
+    public void addProduct(Product product) {
         int count = 0;
         for (int i = 0; i < products.length; i++) {
             if (products[i] == null) {
-                products[i] = new Product(name, price);
+                products[i] = product;
                 break;
             } else if (products[i] != null) {
                 count++;
@@ -35,6 +34,17 @@ public class ProductBasket {
         return totalCost;
     }
 
+    //Метод получения количества специальных товаров
+    public int getQuantityOfSpecialGoods() {
+        int specialGoodsCount = 0;
+        for (Product product : products) {
+            if (product != null && product.isSpecial()) {
+                specialGoodsCount++;
+            }
+        }
+        return specialGoodsCount;
+    }
+
     //3. Метод, который печатает содержимое корзины: метод ничего не принимает и не возвращает,
     // но печатает в консоль сообщение вида: <имя продукта>: <стоимость> и Итого: <общая стоимость корзины>
     public void getBasketContents() {
@@ -47,6 +57,7 @@ public class ProductBasket {
             System.out.println("в корзине пусто");
         }
         System.out.println("Итого: " + getTotalCost());
+        System.out.println("Специальных товаров: " + getQuantityOfSpecialGoods());
     }
 
     //4. Метод, проверяющий продукт в корзине по имени: метод принимает в себя строку имени и возвращает
