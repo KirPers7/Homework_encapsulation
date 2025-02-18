@@ -3,7 +3,11 @@ package org.skypro.skyshop;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
+import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.product.search.Article;
+import org.skypro.skyshop.product.search.SearchEngine;
+import org.skypro.skyshop.product.search.Searchable;
 
 public class App {
     public static void main(String[] args) {
@@ -69,5 +73,49 @@ public class App {
         //10. Поиск товара по имени в пустой корзине.
         System.out.println("Поиск товара по имени в пустой корзине.");
         System.out.println(productBasket.checkProductByName("Холодильник"));
+        System.out.println();
+
+        Article article1 = new Article("Техника для кухни", "На современной кухне много техники в помощь кулинарам");
+        Article article2 = new Article("Медиа техника", "Практически в каждом доме можно увидеть какой-то траслятор" +
+                "изображени и/или звука");
+        Article article3 = new Article("Техника для наведения чистоты", "Пылесосы, стиральные машины, утюги");
+        Article article4 = new Article("Туризм и рыбалка", "Фонарики, компасы, часы, барометры, эхолоты");
+        Article article5 = new Article("Туризм и рыбалка 2", "Скутеры, лодки");
+        Article article6 = new Article("Техника для кухни 2", "Аэрогрили, тостеры, микроволновые печи");
+        Product product1 = new SimpleProduct("Телевизор", 50_000);
+        Product product2 = new SimpleProduct("Холодильник (кухня)", 60_000);
+        Product product3 = new DiscountedProduct("Аэрогриль (кухня)", 5_200, 10);
+        Product product4 = new FixPriceProduct("Фонарик");
+        Product product5 = new SimpleProduct("Пылесос", 30_500);
+        Product product6 = new SimpleProduct("Телевизор", 50_000);
+        Product product7 = new SimpleProduct("Холодильник 2 (кухня)", 62_000);
+        Product product8 = new SimpleProduct("Мультиварка (кухня)", 15_800);
+        Product product9 = new SimpleProduct("Яндекс станция", 12_300);
+
+
+        SearchEngine searchEngine = new SearchEngine(20);
+        searchEngine.add(article1);
+        searchEngine.add(article2);
+        searchEngine.add(article3);
+        searchEngine.add(article4);
+        searchEngine.add(article5);
+        searchEngine.add(article6);
+        searchEngine.add(product1);
+        searchEngine.add(product2);
+        searchEngine.add(product3);
+        searchEngine.add(product4);
+        searchEngine.add(product5);
+        searchEngine.add(product6);
+        searchEngine.add(product7);
+        searchEngine.add(product8);
+        searchEngine.add(product9);
+
+        Searchable[] searchResults = searchEngine.search("кухн");
+
+        for (Searchable searchResult : searchResults) {
+            if (searchResult != null) {
+                System.out.println(searchResult.getStringRepresentation());
+            }
+        }
     }
 }
