@@ -6,11 +6,12 @@ import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.product.search.Article;
+import org.skypro.skyshop.product.search.BestResultNotFound;
 import org.skypro.skyshop.product.search.SearchEngine;
 import org.skypro.skyshop.product.search.Searchable;
 
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BestResultNotFound {
 
         ProductBasket productBasket = new ProductBasket();
         ProductBasket productBasket2 = new ProductBasket();
@@ -75,13 +76,13 @@ public class App {
         System.out.println(productBasket.checkProductByName("Холодильник"));
         System.out.println();
 
-        Article article1 = new Article("Техника для кухни", "На современной кухне много техники в помощь кулинарам");
+        Article article1 = new Article("Техника для кухни", "На современной кухне много приборов в помощь кулинарам");
         Article article2 = new Article("Медиа техника", "Практически в каждом доме можно увидеть какой-то траслятор" +
                 "изображени и/или звука");
         Article article3 = new Article("Техника для наведения чистоты", "Пылесосы, стиральные машины, утюги");
         Article article4 = new Article("Туризм и рыбалка", "Фонарики, компасы, часы, барометры, эхолоты");
         Article article5 = new Article("Туризм и рыбалка 2", "Скутеры, лодки");
-        Article article6 = new Article("Техника для кухни 2", "Аэрогрили, тостеры, микроволновые печи");
+        Article article6 = new Article("Техника для кухни 2 (техника)", "Аэрогрили, тостеры, микроволновые печи");
         Product product1 = new SimpleProduct("Телевизор", 50_000);
         Product product2 = new SimpleProduct("Холодильник (кухня)", 60_000);
         Product product3 = new DiscountedProduct("Аэрогриль (кухня)", 5_200, 10);
@@ -116,6 +117,34 @@ public class App {
             if (searchResult != null) {
                 System.out.println(searchResult.getStringRepresentation());
             }
+        }
+        System.out.println();
+
+        try {
+            new SimpleProduct("Кофемолка", 0);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            new DiscountedProduct("Сигвей", -5000, 0);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            new DiscountedProduct("Сигвей", 12_000, 105);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println();
+
+
+        System.out.println(searchEngine.getMostSuitableOfIdenticalPhrases("техн").getStringRepresentation());
+        System.out.println();
+
+        try {
+            searchEngine.getMostSuitableOfIdenticalPhrases("свет");
+        } catch (BestResultNotFound e) {
+            System.out.println(e.getMessage());
         }
     }
 }
