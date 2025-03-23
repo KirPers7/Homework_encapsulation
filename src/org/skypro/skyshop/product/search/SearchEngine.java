@@ -1,40 +1,25 @@
 package org.skypro.skyshop.product.search;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SearchEngine {
 
-    private final int size;
-    Searchable[] searchables;
-    static final int RECORDS_QUANTITY = 5;
+    List<Searchable> searchables;
 
     public SearchEngine(int size) {
-        this.size = size;
-        this.searchables = new Searchable[size];
+        this.searchables = new ArrayList<>(size);
     }
 
     public void add(Searchable searchable) {
-        int count = 0;
-        for (int i = 0; i < searchables.length; i++) {
-            if (searchables[i] == null) {
-                searchables[i] = searchable;
-                break;
-            } else if (searchables[i] != null) {
-                count++;
-            }
-        }
-        if (count == size) {
-            System.out.println("Невозможно добавить объект");
-        }
+        searchables.add(searchable);
     }
 
-    public Searchable[] search(String searchElement) {
-        int count = 0;
-        Searchable[] results = new Searchable[5];
+    public List<Searchable> search(String searchElement) {
+        List<Searchable> results = new ArrayList<>();
         for (Searchable searchable : searchables) {
             if (searchable != null && searchable.getSearchTerm().toLowerCase().contains(searchElement.toLowerCase())) {
-                results[count++] = searchable;
-            }
-            if (count == RECORDS_QUANTITY) {
-                break;
+                results.add(searchable);
             }
         }
         return results;
