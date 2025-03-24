@@ -10,6 +10,8 @@ import org.skypro.skyshop.product.search.BestResultNotFound;
 import org.skypro.skyshop.product.search.SearchEngine;
 import org.skypro.skyshop.product.search.Searchable;
 
+import java.util.List;
+
 public class App {
     public static void main(String[] args) throws BestResultNotFound {
 
@@ -111,7 +113,8 @@ public class App {
         searchEngine.add(product8);
         searchEngine.add(product9);
 
-        Searchable[] searchResults = searchEngine.search("кухн");
+        System.out.println("Весь список результатов поиска:");
+        List<Searchable> searchResults = searchEngine.search("кухн");
 
         for (Searchable searchResult : searchResults) {
             if (searchResult != null) {
@@ -146,5 +149,16 @@ public class App {
         } catch (BestResultNotFound e) {
             System.out.println(e.getMessage());
         }
+        System.out.println();
+
+        productBasket2.getBasketContents();
+        System.out.println();
+        System.out.println("Удаление продукта из корзины по наименованию");
+        System.out.println(productBasket2.removeProductByNameFromBasket("Холодильник"));
+        System.out.println();
+        System.out.println("Удаление несуществующего продукта из корзины по наименованию");
+        productBasket2.removeProductByNameFromBasket("Холодильник");
+        System.out.println();
+        productBasket2.getBasketContents();
     }
 }

@@ -2,25 +2,16 @@ package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
 
-public class ProductBasket {
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
-    static final int LENGTH = 5;
-    Product[] products = new Product[LENGTH];
+public class ProductBasket {
+    List<Product> products = new LinkedList<>();
 
     //1. Метод добавления продукта в корзину: метод принимает в себя продукт и ничего не возвращает.
     public void addProduct(Product product) {
-        int count = 0;
-        for (int i = 0; i < products.length; i++) {
-            if (products[i] == null) {
-                products[i] = product;
-                break;
-            } else if (products[i] != null) {
-                count++;
-            }
-        }
-        if (count == LENGTH) {
-            System.out.println("Невозможно добавить продукт");
-        }
+        products.add(product);
     }
 
     //2. Метод получения общей стоимости корзины: метод ничего не принимает и возвращает целое число.
@@ -76,11 +67,23 @@ public class ProductBasket {
 
     //5. Метод очистки корзины: метод ничего не принимает и очищает массив, проставляя всем его элементам null
     public void clearBasket() {
-        for (int i = 0; i < products.length; i++) {
-            if (products[i] != null) {
-                products[i] = null;
-            }
-        }
+        products.clear();
     }
 
+    //Метод удаления продукта по имени из корзины-списка
+    public List<Product> removeProductByNameFromBasket(String name) {
+        Iterator<Product> iterator = products.iterator();
+        List<Product> removedProductsList = new LinkedList<>();
+        while (iterator.hasNext()) {
+            Product element = iterator.next();
+            if (element.getProductName().equals(name)) {
+                removedProductsList.add(element);
+                iterator.remove();
+            }
+        }
+        if (removedProductsList.isEmpty()) {
+            System.out.println("Список пуст");
+        }
+        return removedProductsList;
+    }
 }
