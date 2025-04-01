@@ -8,34 +8,27 @@ import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.product.search.Article;
 import org.skypro.skyshop.product.search.BestResultNotFound;
 import org.skypro.skyshop.product.search.SearchEngine;
-import org.skypro.skyshop.product.search.Searchable;
-
-import java.util.List;
 
 public class App {
     public static void main(String[] args) throws BestResultNotFound {
 
         ProductBasket productBasket = new ProductBasket();
         ProductBasket productBasket2 = new ProductBasket();
+        ProductBasket productBasketMap = new ProductBasket();
 
         //1. Добавление продукта в корзину.
         System.out.println("Заполнение корзины 1");
-        productBasket.addProduct(new SimpleProduct("Телевизор", 50_000));
-        productBasket.addProduct(new SimpleProduct("Холодильник", 60_000));
-        productBasket.addProduct(new DiscountedProduct("Аэрогриль", 5_200, 10));
-        productBasket.addProduct(new FixPriceProduct("Фонарик"));
+        productBasket.addProduct("Телевизор", new SimpleProduct("Телевизор", 50_000));
+        productBasket.addProduct("Холодильник", new SimpleProduct("Холодильник", 60_000));
+        productBasket.addProduct("Аэрогриль", new DiscountedProduct("Аэрогриль", 5_200, 10));
+        productBasket.addProduct("Фонарик", new FixPriceProduct("Фонарик"));
         System.out.println();
         System.out.println("Заполнение корзины 2");
-        productBasket2.addProduct(new SimpleProduct("Пылесос", 30_500));
-        productBasket2.addProduct(new SimpleProduct("Телевизор", 50_000));
-        productBasket2.addProduct(new SimpleProduct("Холодильник", 60_000));
-        productBasket2.addProduct(new SimpleProduct("Мультиварка", 15_800));
-        productBasket2.addProduct(new SimpleProduct("Яндекс станция", 12_300));
-        System.out.println();
-
-        //2. Добавление продукта в заполненную корзину, в которой нет свободного места.
-        System.out.println("Переполнение корзины 2");
-        productBasket2.addProduct(new SimpleProduct("Микроволновая печь", 25_100));
+        productBasket2.addProduct("Пылесос", new SimpleProduct("Пылесос", 30_500));
+        productBasket2.addProduct("Телевизор", new SimpleProduct("Телевизор", 50_000));
+        productBasket2.addProduct("Холодильник", new SimpleProduct("Холодильник", 60_000));
+        productBasket2.addProduct("Мультиварка", new SimpleProduct("Мультиварка", 15_800));
+        productBasket2.addProduct("Яндекс станция", new SimpleProduct("Яндекс станция", 12_300));
         System.out.println();
 
         //3. Печать содержимого корзины с несколькими товарами.
@@ -114,13 +107,7 @@ public class App {
         searchEngine.add(product9);
 
         System.out.println("Весь список результатов поиска:");
-        List<Searchable> searchResults = searchEngine.search("кухн");
-
-        for (Searchable searchResult : searchResults) {
-            if (searchResult != null) {
-                System.out.println(searchResult.getStringRepresentation());
-            }
-        }
+        System.out.println(searchEngine.search("кухн"));
         System.out.println();
 
         try {
@@ -160,5 +147,10 @@ public class App {
         productBasket2.removeProductByNameFromBasket("Холодильник");
         System.out.println();
         productBasket2.getBasketContents();
+        System.out.println();
+
+        productBasketMap.addProduct("Триммер", new SimpleProduct("Триммер", 4_600));
+        productBasketMap.addProduct("Триммер", new SimpleProduct("Триммер", 5_200));
+        productBasketMap.getBasketContents();
     }
 }
