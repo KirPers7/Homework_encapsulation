@@ -19,22 +19,44 @@ public class ProductBasket {
     }
 
     //2. Метод получения общей стоимости корзины: метод ничего не принимает и возвращает целое число.
+//    public int getTotalCost() {
+//        int totalCost = 0;
+//        for (Product product : productsList) {
+//            if (product != null) {
+//                totalCost = totalCost + product.getProductPrice();
+//            }
+//        }
+//        return totalCost;
+//    }
+
     public int getTotalCost() {
         int totalCost = 0;
-        for (Product product : productsList) {
-            if (product != null) {
-                totalCost = totalCost + product.getProductPrice();
+        for (Map.Entry<String, List<Product>> product : productsMap.entrySet()) {
+            for (Product productsList : product.getValue()) {
+                totalCost = totalCost + productsList.getProductPrice();
             }
         }
         return totalCost;
     }
 
     //Метод получения количества специальных товаров
+//    public int getQuantityOfSpecialGoods() {
+//        int specialGoodsCount = 0;
+//        for (Product product : productsList) {
+//            if (product != null && product.isSpecial()) {
+//                specialGoodsCount++;
+//            }
+//        }
+//        return specialGoodsCount;
+//    }
+
     public int getQuantityOfSpecialGoods() {
         int specialGoodsCount = 0;
-        for (Product product : productsList) {
-            if (product != null && product.isSpecial()) {
-                specialGoodsCount++;
+        for (Map.Entry<String, List<Product>> product : productsMap.entrySet()) {
+            for (Product productsList : product.getValue()) {
+                if (productsList.isSpecial()) {
+                    specialGoodsCount++;
+                }
             }
         }
         return specialGoodsCount;
@@ -43,16 +65,17 @@ public class ProductBasket {
     //3. Метод, который печатает содержимое корзины: метод ничего не принимает и не возвращает,
     // но печатает в консоль сообщение вида: <имя продукта>: <стоимость> и Итого: <общая стоимость корзины>
     public void getBasketContents() {
-        for (Product product : productsList) {
-            if (product != null) {
-                System.out.println(product);
+        if (productsMap.isEmpty()) {
+            System.out.println("в корзине пусто");
+        } else {
+            for (Map.Entry<String, List<Product>> product : productsMap.entrySet()) {
+                for (Product productsList : product.getValue()) {
+                    System.out.println(productsList);
+                }
+                System.out.println("Итого: " + getTotalCost());
+                System.out.println("Специальных товаров: " + getQuantityOfSpecialGoods());
             }
         }
-        if (getTotalCost() == 0) {
-            System.out.println("в корзине пусто");
-        }
-        System.out.println("Итого: " + getTotalCost());
-        System.out.println("Специальных товаров: " + getQuantityOfSpecialGoods());
     }
 
     //4. Метод, проверяющий продукт в корзине по имени: метод принимает в себя строку имени и возвращает
