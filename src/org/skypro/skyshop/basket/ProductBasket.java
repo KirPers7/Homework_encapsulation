@@ -5,30 +5,22 @@ import org.skypro.skyshop.product.Product;
 import java.util.*;
 
 public class ProductBasket {
-    List<Product> productsList = new LinkedList<>();
+
     Map<String, List<Product>> productsMap = new HashMap<>();
 
     //1. Метод добавления продукта в корзину: метод принимает в себя продукт и ничего не возвращает.
     public void addProduct(String productName, Product product) {
+        LinkedList<Product> products = new LinkedList<>();
         if (!productsMap.containsKey(productName)) {
-            productsMap.put(productName, productsList);
-            productsList.add(product);
+            products = new LinkedList<>();
+            productsMap.put(productName, products);
+            products.add(product);
         } else {
-            productsList.add(product);
+            products.add(product);
         }
     }
 
     //2. Метод получения общей стоимости корзины: метод ничего не принимает и возвращает целое число.
-//    public int getTotalCost() {
-//        int totalCost = 0;
-//        for (Product product : productsList) {
-//            if (product != null) {
-//                totalCost = totalCost + product.getProductPrice();
-//            }
-//        }
-//        return totalCost;
-//    }
-
     public int getTotalCost() {
         int totalCost = 0;
         for (Map.Entry<String, List<Product>> product : productsMap.entrySet()) {
@@ -40,16 +32,6 @@ public class ProductBasket {
     }
 
     //Метод получения количества специальных товаров
-//    public int getQuantityOfSpecialGoods() {
-//        int specialGoodsCount = 0;
-//        for (Product product : productsList) {
-//            if (product != null && product.isSpecial()) {
-//                specialGoodsCount++;
-//            }
-//        }
-//        return specialGoodsCount;
-//    }
-
     public int getQuantityOfSpecialGoods() {
         int specialGoodsCount = 0;
         for (Map.Entry<String, List<Product>> product : productsMap.entrySet()) {
@@ -72,9 +54,9 @@ public class ProductBasket {
                 for (Product productsList : product.getValue()) {
                     System.out.println(productsList);
                 }
-                System.out.println("Итого: " + getTotalCost());
-                System.out.println("Специальных товаров: " + getQuantityOfSpecialGoods());
             }
+            System.out.println("Итого: " + getTotalCost());
+            System.out.println("Специальных товаров: " + getQuantityOfSpecialGoods());
         }
     }
 
@@ -83,10 +65,12 @@ public class ProductBasket {
     public boolean checkProductByName(String productName) {
         boolean result = false;
         if (productsMap.containsKey(productName)) {
-            for (Product product : productsList) {
-                if (product != null && product.getProductName().equals(productName)) {
-                    result = true;
-                    break;
+            for (Map.Entry<String, List<Product>> product : productsMap.entrySet()) {
+                for (Product productsList : product.getValue()) {
+                    if (productsList != null && productsList.getProductName().equals(productName)) {
+                        result = true;
+                        break;
+                    }
                 }
             }
         } else {
@@ -98,13 +82,21 @@ public class ProductBasket {
 
     //5. Метод очистки корзины: метод ничего не принимает и очищает массив, проставляя всем его элементам null
     public void clearBasket() {
-        productsList.clear();
         productsMap.clear();
     }
 
     //Метод удаления продукта по имени из корзины-списка
     public List<Product> removeProductByNameFromBasket(String name) {
-        Iterator<Product> iterator = productsList.iterator();
+        LinkedList<Product> products;
+        products = new LinkedList<>();
+        for (Map.Entry<String, List<Product>> product : productsMap.entrySet()) {
+            for (Product productsList : product.getValue()) {
+                if (productsList != null && productsList.getProductName().equals(name)) {
+                    products.add(productsList);
+                }
+            }
+        }
+        Iterator<Product> iterator = products.iterator();
         List<Product> removedProductsList = new LinkedList<>();
         if (productsMap.containsKey(name)) {
             while (iterator.hasNext()) {
