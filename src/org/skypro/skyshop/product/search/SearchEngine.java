@@ -2,6 +2,8 @@ package org.skypro.skyshop.product.search;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class SearchEngine {
 
@@ -15,11 +17,11 @@ public class SearchEngine {
         searchables.add(searchable);
     }
 
-    public List<Searchable> search(String searchElement) {
-        List<Searchable> results = new ArrayList<>();
+    public Map<String, Searchable> search(String searchElement) {
+        Map<String, Searchable> results = new TreeMap<>();
         for (Searchable searchable : searchables) {
             if (searchable != null && searchable.getSearchTerm().toLowerCase().contains(searchElement.toLowerCase())) {
-                results.add(searchable);
+                results.put(searchable.getSearchTerm(), searchable);
             }
         }
         return results;
