@@ -4,7 +4,6 @@ import java.util.*;
 
 public class SearchEngine {
 
-//    List<Searchable> searchables;
     Set<Searchable> searchables;
 
     public SearchEngine() {
