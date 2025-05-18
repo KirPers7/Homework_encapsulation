@@ -89,7 +89,7 @@ public class App {
         Product product9 = new SimpleProduct("Яндекс станция", 12_300);
 
 
-        SearchEngine searchEngine = new SearchEngine(20);
+        SearchEngine searchEngine = new SearchEngine();
         searchEngine.add(article1);
         searchEngine.add(article2);
         searchEngine.add(article3);
